@@ -9,7 +9,7 @@ class CommonView implements View {
             <button class="nav__button button" id="to-garage">to garage</button>
             <button class="nav__button button" id="to-winners">to winners</button>
           </div>
-          <div class="page" id="page"></div> 
+          <div id="view"></div> 
       `;
     }
 }

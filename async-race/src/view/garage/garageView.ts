@@ -3,8 +3,8 @@ import html from './garageViewHTML';
 
 class GarageView implements View {
     render() {
-        const page = document.getElementById('page') as HTMLDivElement;
-        page.innerHTML = html;
+        const view = document.getElementById('view') as HTMLDivElement;
+        view.innerHTML = html;
     }
 }
 

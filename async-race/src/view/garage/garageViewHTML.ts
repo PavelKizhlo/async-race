@@ -14,7 +14,12 @@ const html = `
   <button class="reset-button button" id="reset-button">reset</button>
   <button class="generate-button button" id="generate-button">generate cars</button>
   </div>
-  <section class="cars" id="cars-section"></section>
+  <h2 class="cars-title" id="cars-title"></h2>
+  <div class="cars-page" id="cars-page"></div>
+  <div class="pagination">
+    <button class="pagination__button button" id="pagination-prev">prev</button>
+    <button class="pagination__button button" id="pagination-next">next</button>
+  </div>
 `;
 
 export default html;
