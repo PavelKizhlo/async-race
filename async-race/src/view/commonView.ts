@@ -6,10 +6,10 @@ class CommonView implements View {
 
         container.innerHTML = `
           <div class="nav">
-            <button class="nav__button" id="to-garage">to garage</button>
-            <button class="nav__button" id="to-winners">to winners</button>
+            <button class="nav__button button" id="to-garage">to garage</button>
+            <button class="nav__button button" id="to-winners">to winners</button>
           </div>
-          <div class="page"></div> 
+          <div class="page" id="page"></div> 
       `;
     }
 }

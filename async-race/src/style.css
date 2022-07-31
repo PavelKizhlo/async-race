@@ -14,7 +14,7 @@ body {
     margin-bottom: 4vh;
 }
 
-.nav__button {
+.button {
     padding: 10px;
     border: none;
     border-radius: 2px;
@@ -25,6 +25,38 @@ body {
     transition: 0.25s;
 }
 
-.nav__button:hover {
+.button:hover {
     transform: scale(1.05);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    justify-content: center;
+    gap: 15px;
+}
+
+.controls__create-field,
+.controls__update-field {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 15px;
+}
+
+.text-input {
+    display: block;
+    flex-grow: 1;
+    padding: 5px;
+    padding-left: 10px;
+}
+
+.color-input {
+    display: block;
+    height: 100%;
+    cursor: pointer;
+}
+
+.create-button,
+.update-button {
+    width: 150px;
 }
