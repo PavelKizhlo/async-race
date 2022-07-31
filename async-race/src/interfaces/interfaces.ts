@@ -54,3 +54,7 @@ export interface WinnersAPI {
     deleteWinner: (id: number) => Promise<void>;
     updateWinner: (id: number, winnerParams: Omit<Winner, 'id'>) => Promise<void>;
 }
+
+export interface View {
+    render: () => void;
+}
