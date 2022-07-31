@@ -1,4 +1,4 @@
-import { GarageAPI, Car, CarParams } from '../interfaces/interfaces';
+import { GarageAPI, Car } from '../interfaces/interfaces';
 
 class Garage implements GarageAPI {
     private baseURL: string;
@@ -24,7 +24,7 @@ class Garage implements GarageAPI {
         return response.json();
     }
 
-    async createCar(params: CarParams) {
+    async createCar(params: Omit<Car, 'id'>) {
         const response = await fetch(this.garage, {
             method: 'POST',
             body: JSON.stringify(params),
@@ -39,7 +39,7 @@ class Garage implements GarageAPI {
         await fetch(`${this.garage}/${id}`, { method: 'DELETE' });
     }
 
-    async updateCar(id: number, params: CarParams) {
+    async updateCar(id: number, params: Omit<Car, 'id'>) {
         await fetch(`${this.garage}/${id}`, {
             method: 'PUT',
             body: JSON.stringify(params),

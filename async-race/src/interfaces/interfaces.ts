@@ -10,11 +10,6 @@ export type Winner = {
     time: number;
 };
 
-export type CarParams = {
-    name: string;
-    color: string;
-};
-
 export type RaceParams = {
     velocity: number;
     distance: number;
@@ -33,9 +28,9 @@ export interface GarageAPI {
         total: number;
     }>;
     getCar: (id: number) => Promise<Car>;
-    createCar: (params: CarParams) => Promise<Car>;
+    createCar: (params: Omit<Car, 'id'>) => Promise<Car>;
     deleteCar: (id: number) => Promise<void>;
-    updateCar: (id: number, params: CarParams) => Promise<void>;
+    updateCar: (id: number, params: Omit<Car, 'id'>) => Promise<void>;
 }
 
 export interface EngineAPI {
@@ -45,9 +40,17 @@ export interface EngineAPI {
 }
 
 export interface WinnersAPI {
-    getWinners: () => Promise<Array<Winner>>;
-    getWinner: () => Promise<Winner>;
-    createWinner: (winnerParams: Winner) => Promise<void>;
-    deleteWinner: () => Promise<void>;
-    updateWinner: (winnerParams: Omit<Winner, 'id'>) => Promise<void>;
+    getWinnersData: (
+        page: number,
+        limit: number,
+        sort: 'id' | 'wins' | 'time',
+        order: 'ASC' | 'DESC'
+    ) => Promise<{
+        winners: Array<Winner>;
+        total: number;
+    }>;
+    getWinner: (id: number) => Promise<Winner>;
+    createWinner: (winnerParams: Omit<Winner, 'id'>) => Promise<Winner>;
+    deleteWinner: (id: number) => Promise<void>;
+    updateWinner: (id: number, winnerParams: Omit<Winner, 'id'>) => Promise<void>;
 }
