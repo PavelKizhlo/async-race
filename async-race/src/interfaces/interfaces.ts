@@ -39,9 +39,9 @@ export interface GarageAPI {
 }
 
 export interface EngineAPI {
-    startEngine: () => Promise<RaceParams>;
-    stopEngine: () => Promise<RaceParams>;
-    drive: () => Promise<SuccessRace>;
+    startEngine: (id: number) => Promise<RaceParams>;
+    stopEngine: (id: number) => Promise<RaceParams>;
+    drive: (id: number) => Promise<SuccessRace>;
 }
 
 export interface WinnersAPI {
