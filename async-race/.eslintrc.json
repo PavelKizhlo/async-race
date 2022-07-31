@@ -1,33 +1,30 @@
 {
-  "plugins": [
-    "prettier",
-    "import",
-    "@typescript-eslint"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended",
-    "prettier",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": [
-      "**/tsconfig.json"
+    "plugins": ["prettier", "import", "@typescript-eslint"],
+    "extends": [
+        "eslint:recommended",
+        "airbnb-base",
+        "plugin:prettier/recommended",
+        "prettier",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
     ],
-    "ecmaVersion": 2020,
-    "sourceType": "module"
-  },
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true
-  },
-  "rules": {
-    "no-debugger": "off",
-    "no-console": 0,
-    "class-methods-use-this": "off",
-    "@typescript-eslint/no-explicit-any": "error"
-  }
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": ["**/tsconfig.json"],
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "no-debugger": "off",
+        "no-console": 0,
+        "class-methods-use-this": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        "import/no-unresolved": "off", // To avoid conflict between Typescript and EsLint
+        "import/extensions": "off" // To avoid conflict between Typescript and EsLint
+    }
 }
