@@ -1,19 +1,19 @@
 import CommonView from '../view/commonView';
-import PageController from '../controllers/pageController';
+import ViewController from '../controllers/viewController';
 
 class App {
     private commonView: CommonView;
 
-    private pageController: PageController;
+    private viewController: ViewController;
 
     constructor() {
         this.commonView = new CommonView();
-        this.pageController = new PageController();
+        this.viewController = new ViewController();
     }
 
     start() {
         this.commonView.render();
-        this.pageController.start();
+        this.viewController.start();
     }
 }
 

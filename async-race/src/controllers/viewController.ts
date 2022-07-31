@@ -1,6 +1,6 @@
 import GarageView from '../view/garage/garageView';
 
-class PageController {
+class ViewController {
     private garageView: GarageView;
 
     constructor() {
@@ -12,4 +12,4 @@ class PageController {
     }
 }
 
-export default PageController;
+export default ViewController;
