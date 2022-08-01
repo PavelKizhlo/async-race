@@ -21,8 +21,7 @@ export type SuccessRace = {
 
 export interface GarageAPI {
     getCarsData: (
-        page: number,
-        limit: number
+        page: number
     ) => Promise<{
         cars: Array<Car>;
         total: number;
@@ -42,7 +41,6 @@ export interface EngineAPI {
 export interface WinnersAPI {
     getWinnersData: (
         page: number,
-        limit: number,
         sort: 'id' | 'wins' | 'time',
         order: 'ASC' | 'DESC'
     ) => Promise<{
@@ -54,6 +52,16 @@ export interface WinnersAPI {
     deleteWinner: (id: number) => Promise<void>;
     updateWinner: (id: number, winnerParams: Omit<Winner, 'id'>) => Promise<void>;
 }
+
+export type StateObj = {
+    view: 'garage' | 'winners';
+    garagePage: number;
+    createCarInput: string;
+    createColorInput: string;
+    updateCarInput: string;
+    updateColorInput: string;
+    winnersPage: number;
+};
 
 export interface View {
     render: () => void;
