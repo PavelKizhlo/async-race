@@ -1,4 +1,5 @@
 import { WinnersAPI, Winner } from '../interfaces/interfaces';
+import constants from '../app/appData/constants';
 
 class Winners implements WinnersAPI {
     private baseURL: string;
@@ -10,8 +11,10 @@ class Winners implements WinnersAPI {
         this.winners = `${this.baseURL}/winners`;
     }
 
-    async getWinnersData(page: number, limit: number, sort: 'id' | 'wins' | 'time', order: 'ASC' | 'DESC') {
-        const response = await fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`);
+    async getWinnersData(page: number, sort: 'id' | 'wins' | 'time', order: 'ASC' | 'DESC') {
+        const response = await fetch(
+            `${this.winners}?_page=${page}&_limit=${constants.winnersPerPage}&_sort=${sort}&_order=${order}`
+        );
 
         return {
             winners: (await response.json()) as Array<Winner>,

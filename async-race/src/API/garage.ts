@@ -1,4 +1,5 @@
 import { GarageAPI, Car } from '../interfaces/interfaces';
+import constants from '../app/appData/constants';
 
 class Garage implements GarageAPI {
     private baseURL: string;
@@ -10,8 +11,8 @@ class Garage implements GarageAPI {
         this.garage = `${this.baseURL}/garage`;
     }
 
-    async getCarsData(page: number, limit: number) {
-        const response = await fetch(`${this.garage}?_page=${page}&_limit=${limit}`);
+    async getCarsData(page: number) {
+        const response = await fetch(`${this.garage}?_page=${page}&_limit=${constants.carsPerPage}`);
 
         return {
             cars: (await response.json()) as Array<Car>,
