@@ -105,7 +105,8 @@ body {
     width: 100%;
 }
 
-.garage-pagination {
+.garage-pagination,
+.winners-pagination {
     display: flex;
     justify-content: center;
     gap: 15px;
