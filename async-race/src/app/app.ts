@@ -11,9 +11,9 @@ class App {
         this.viewController = new ViewController();
     }
 
-    start() {
+    async start() {
         this.commonView.render();
-        this.viewController.start();
+        await this.viewController.start();
     }
 }
 

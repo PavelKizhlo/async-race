@@ -25,6 +25,14 @@
         "class-methods-use-this": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "import/no-unresolved": "off", // To avoid conflict between Typescript and EsLint
-        "import/extensions": "off" // To avoid conflict between Typescript and EsLint
+        "import/extensions": "off", // To avoid conflict between Typescript and EsLint
+        "@typescript-eslint/no-misused-promises": [
+            "error",
+            {
+                "checksVoidReturn": {
+                    "arguments": false //Disables checking an asynchronous function passed as argument where the parameter type expects a function that returns void
+                }
+            }
+        ]
     }
 }

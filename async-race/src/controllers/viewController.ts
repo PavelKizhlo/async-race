@@ -27,6 +27,24 @@ class ViewController {
                 await this.garageController.start();
                 break;
         }
+
+        const garageButton = document.getElementById('to-garage') as HTMLButtonElement;
+        const winnersButton = document.getElementById('to-winners') as HTMLButtonElement;
+
+        garageButton.addEventListener('click', async () => {
+            if (state.view !== 'garage') {
+                state.view = 'garage';
+                this.garageView.render();
+                await this.garageController.start();
+            }
+        });
+
+        winnersButton.addEventListener('click', () => {
+            if (state.view !== 'winners') {
+                state.view = 'winners';
+                this.winnersView.render();
+            }
+        });
     }
 }
 
