@@ -1,5 +1,5 @@
 import { Car } from '../../interfaces/interfaces';
-import svg from './carImage';
+import svg from '../carImage';
 
 class CarView {
     render(carData: Car) {
