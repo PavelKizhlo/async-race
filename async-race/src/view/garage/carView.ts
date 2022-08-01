@@ -5,14 +5,17 @@ class CarView {
     render(carData: Car) {
         const carsContainer = document.getElementById('cars-container') as HTMLDivElement;
         const carItem = document.createElement('div');
+        carItem.classList.add('cars-item');
 
         carItem.innerHTML = `
-          <button class="select-button button" id="select-button">select</button>
-          <button class="remove-button button" id="remove-button">remove</button>
-          <span class="car-name" id="car-name">${carData.name}</span>
+          <div class="car-options">
+            <button class="select-button button" id="select-button">select</button>
+            <button class="remove-button button" id="remove-button">remove</button>
+            <span class="car-name" id="car-name">${carData.name}</span>
+          </div>
           <div class="track">
             <button class="engine-button button" id="start-engine">a</button>
-            <button class="engine-button button" id="stop-engine">a</button>
+            <button class="engine-button button" id="stop-engine">b</button>
             <span class="car" id="car">${svg}</span>
           </div>
         `;

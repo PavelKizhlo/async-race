@@ -16,7 +16,7 @@ const html = `
   </div>
   <h2 class="cars-title" id="cars-title"></h2>
   <div class="cars-page" id="cars-page"></div>
-  <div class="pagination">
+  <div class="garage-pagination">
     <button class="pagination__button button" id="pagination-prev">prev</button>
     <button class="pagination__button button" id="pagination-next">next</button>
   </div>
