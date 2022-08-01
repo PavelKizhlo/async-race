@@ -60,3 +60,53 @@ body {
 .update-button {
     width: 150px;
 }
+
+.cars-page {
+    margin-bottom: 3vw;
+}
+
+.cars-title {
+    color: #ffffff;
+    font-size: 2rem;
+}
+
+.page-title {
+    margin: 0;
+    margin-bottom: 2vw;
+    color: #ffffff;
+}
+
+.cars-item {
+    margin-bottom: 1vw;
+}
+
+.car-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1vw;
+}
+
+.car-name {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.track {
+    border-bottom: 3px dashed #ffffff;
+}
+
+.car {
+    display: block;
+    width: 100px;
+}
+
+.car svg {
+    width: 100%;
+}
+
+.garage-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
