@@ -8,6 +8,8 @@ const state: StateObj = {
     updateCarInput: '',
     updateColorInput: '#9e5b9f',
     winnersPage: 1,
+    sort: 'id',
+    order: 'ASC',
 };
 
 export default state;

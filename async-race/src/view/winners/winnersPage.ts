@@ -21,11 +21,11 @@ class WinnersPage {
           <table class="winners-table table">
             <thead class="table__head">
               <tr>
-                <th>Number</th>
-                <th>Car</th>
-                <th>Name</th>
-                <th>Wins</th>
-                <th>Best time</th>
+                <th class="table__header">Number</th>
+                <th class="table__header">Car</th>
+                <th class="table__header">Name</th>
+                <th class="table__header">Wins</th>
+                <th class="table__header">Best time</th>
               </tr>
             </thead>
           <tbody class="table__body" id="table-body"></tbody>

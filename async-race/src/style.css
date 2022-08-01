@@ -61,11 +61,13 @@ body {
     width: 150px;
 }
 
-.cars-page {
+.cars-page,
+.winners-page {
     margin-bottom: 3vw;
 }
 
-.cars-title {
+.cars-title,
+.winners-title {
     color: #ffffff;
     font-size: 2rem;
 }
@@ -110,4 +112,32 @@ body {
     display: flex;
     justify-content: center;
     gap: 15px;
+}
+
+.table {
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.table__header {
+    padding-bottom: 3vw;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #ffffff;
+    border-right: 1px solid #ffffff;
+}
+
+.table__header:last-child {
+    border-right: none;
+}
+
+.table__cell {
+    width: 20%;
+    padding: 0 6vw;
+    border-right: 1px solid #ffffff;
+}
+
+.table__cell:last-child {
+    border-right: none;
 }

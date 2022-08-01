@@ -8,11 +8,11 @@ class SingleWinnerView {
         tableRow.classList.add('table-row');
 
         tableRow.innerHTML = `
-          <td>${index}</td>
-          <td>${svg}</td>
-          <td>${winnerData.winnersCar.name}</td>
-          <td>${winnerData.winner.wins}</td>
-          <td>${winnerData.winner.time}</td>
+          <td class="table__cell">${index}</td>
+          <td class="table__cell">${svg}</td>
+          <td class="table__cell">${winnerData.winnersCar.name}</td>
+          <td class="table__cell">${winnerData.winner.wins}</td>
+          <td class="table__cell">${winnerData.winner.time}</td>
         `;
 
         const carImage = tableRow.querySelector('svg path') as SVGPathElement;

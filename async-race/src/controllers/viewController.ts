@@ -2,6 +2,7 @@ import state from '../app/appData/state';
 import GarageView from '../view/garage/garageView';
 import GarageController from './garageController';
 import WinnersView from '../view/winners/winnersView';
+import WinnersController from './winnersController';
 
 class ViewController {
     private garageView: GarageView;
@@ -10,10 +11,13 @@ class ViewController {
 
     private winnersView: WinnersView;
 
+    private winnerController: WinnersController;
+
     constructor() {
         this.garageView = new GarageView();
         this.garageController = new GarageController();
         this.winnersView = new WinnersView();
+        this.winnerController = new WinnersController();
     }
 
     async start() {
@@ -39,10 +43,11 @@ class ViewController {
             }
         });
 
-        winnersButton.addEventListener('click', () => {
+        winnersButton.addEventListener('click', async () => {
             if (state.view !== 'winners') {
                 state.view = 'winners';
                 this.winnersView.render();
+                await this.winnerController.start();
             }
         });
     }

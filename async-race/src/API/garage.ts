@@ -22,7 +22,7 @@ class Garage implements GarageAPI {
 
     async getCar(id: number) {
         const response = await fetch(`${this.garage}/${id}`);
-        return response.json();
+        return response.json() as Promise<Car>;
     }
 
     async createCar(params: Omit<Car, 'id'>) {

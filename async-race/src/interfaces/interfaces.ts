@@ -61,6 +61,8 @@ export type StateObj = {
     updateCarInput: string;
     updateColorInput: string;
     winnersPage: number;
+    sort: 'id' | 'wins' | 'time';
+    order: 'ASC' | 'DESC';
 };
 
 export interface View {
