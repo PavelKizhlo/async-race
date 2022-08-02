@@ -1,5 +1,6 @@
 import GaragePage from '../view/garage/garagePage';
 import Garage from '../API/garage';
+import Winners from '../API/winners';
 import state from '../app/appData/state';
 import constants from '../app/appData/constants';
 
@@ -8,9 +9,12 @@ class GarageController {
 
     private garage: Garage;
 
+    private winners: Winners;
+
     constructor() {
         this.garagePage = new GaragePage();
         this.garage = new Garage();
+        this.winners = new Winners();
     }
 
     async start() {
@@ -62,6 +66,7 @@ class GarageController {
 
     async removeCar(id: number) {
         await this.garage.deleteCar(id);
+        await this.winners.deleteWinner(id);
 
         const carsData = await this.garage.getCarsData(state.garagePage);
         this.garagePage.renderCarsTitle(carsData.total);
