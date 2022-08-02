@@ -6,7 +6,7 @@ const html = `
       <button class="create-button button" id="create-button">create</button>
   </div>
   <div class="controls__update-field">
-      <input class="text-input" type="text" id="update-name-input" placeholder="Please, enter new car name ...">
+      <input class="text-input" type="text" id="update-name-input" placeholder="Enter new car name, or change color only ...">
       <input class="color-input" type="color" id="update-color-input"  value="#9e5b9f">
       <button class="update-button button" id="update-button">update</button>
   </div>

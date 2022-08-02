@@ -29,6 +29,15 @@ class GarageController {
                 case elementID.includes('remove-button'):
                     await this.removeCar(+elementID.slice(-1));
                     break;
+                case elementID.includes('select-button'):
+                    if ((evt.target as HTMLElement).classList.contains('button_active')) {
+                        (evt.target as HTMLElement).classList.remove('button_active');
+                    } else {
+                        document.querySelector('.button_active')?.classList.remove('button_active');
+                        (evt.target as HTMLElement).classList.add('button_active');
+                    }
+                    this.changeCar();
+                    break;
                 default:
                     break;
             }
@@ -57,6 +66,29 @@ class GarageController {
         const carsData = await this.garage.getCarsData(state.garagePage);
         this.garagePage.renderCarsTitle(carsData.total);
         this.garagePage.render(state.garagePage, carsData.cars);
+    }
+
+    changeCar() {
+        const carNameInput = document.getElementById('update-name-input') as HTMLInputElement;
+        const carColorInput = document.getElementById('update-color-input') as HTMLInputElement;
+        const updateButton = document.getElementById('update-button') as HTMLButtonElement;
+
+        updateButton.addEventListener('click', async () => {
+            const selectedCar = document.querySelector('.button_active');
+
+            if (selectedCar) {
+                const id = +selectedCar.id.slice(-1);
+                const prevName = (document.getElementById(`car-name-${id}`) as HTMLSpanElement).innerHTML;
+                await this.garage.updateCar(id, {
+                    name: carNameInput.value ? carNameInput.value : prevName,
+                    color: carColorInput.value,
+                });
+                carNameInput.value = '';
+            }
+
+            const carsData = await this.garage.getCarsData(state.garagePage);
+            this.garagePage.render(state.garagePage, carsData.cars);
+        });
     }
 }
 
