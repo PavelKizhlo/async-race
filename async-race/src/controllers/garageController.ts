@@ -32,7 +32,7 @@ class GarageController {
                     await this.addNewCar();
                     break;
                 case elementID.includes('remove-button'):
-                    await this.removeCar(+elementID.slice(-1));
+                    await this.removeCar(parseInt((elementID.match(/[0-9]+$/) as RegExpMatchArray)[0], 10));
                     break;
                 case elementID.includes('select-button'):
                     if ((evt.target as HTMLElement).classList.contains('button_active')) {
@@ -58,6 +58,7 @@ class GarageController {
 
         if (carNameInput.value) {
             await this.garage.createCar({ name: carNameInput.value, color: carColorInput.value });
+            carNameInput.value = '';
         }
 
         const carsData = await this.garage.getCarsData(state.garagePage);
@@ -83,10 +84,10 @@ class GarageController {
         const updateButton = document.getElementById('update-button') as HTMLButtonElement;
 
         updateButton.addEventListener('click', async () => {
-            const selectedCar = document.querySelector('.button_active');
+            const selectedCar = document.querySelector('.button_active') as HTMLButtonElement;
 
             if (selectedCar) {
-                const id = +selectedCar.id.slice(-1);
+                const id = parseInt((selectedCar.id.match(/[0-9]+$/) as RegExpMatchArray)[0], 10);
                 const prevName = (document.getElementById(`car-name-${id}`) as HTMLSpanElement).innerHTML;
                 await this.garage.updateCar(id, {
                     name: carNameInput.value ? carNameInput.value : prevName,
