@@ -9,14 +9,14 @@ class CarView {
 
         carItem.innerHTML = `
           <div class="car-options">
-            <button class="select-button button" id="select-button">select</button>
-            <button class="remove-button button" id="remove-button">remove</button>
+            <button class="select-button button" id="select-button-${carData.id}">select</button>
+            <button class="remove-button button" id="remove-button-${carData.id}">remove</button>
             <span class="car-name" id="car-name">${carData.name}</span>
           </div>
           <div class="track">
-            <button class="engine-button button" id="start-engine">a</button>
-            <button class="engine-button button" id="stop-engine">b</button>
-            <span class="car" id="car">${svg}</span>
+            <button class="engine-button button" id="start-engine-${carData.id}">a</button>
+            <button class="engine-button button" id="stop-engine-${carData.id}">b</button>
+            <span class="car" id="car-${carData.id}">${svg}</span>
           </div>
         `;
 

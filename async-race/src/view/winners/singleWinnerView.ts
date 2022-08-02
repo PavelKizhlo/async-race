@@ -12,7 +12,7 @@ class SingleWinnerView {
           <td class="table__cell">${svg}</td>
           <td class="table__cell">${winnerData.winnersCar.name}</td>
           <td class="table__cell">${winnerData.winner.wins}</td>
-          <td class="table__cell">${winnerData.winner.time}</td>
+          <td class="table__cell">${winnerData.winner.time} sec</td>
         `;
 
         const carImage = tableRow.querySelector('svg path') as SVGPathElement;

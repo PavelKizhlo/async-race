@@ -24,6 +24,7 @@ class ViewController {
         switch (state.view) {
             case 'winners':
                 this.winnersView.render();
+                await this.winnerController.start();
                 break;
             case 'garage':
             default:
