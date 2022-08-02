@@ -20,9 +20,14 @@ class GarageController {
         this.garagePage.render(state.garagePage, carsData.cars);
 
         view.addEventListener('click', async (evt) => {
-            switch ((evt.target as HTMLElement).id) {
-                case 'create-button':
+            const elementID = (evt.target as HTMLElement).id;
+
+            switch (true) {
+                case elementID === 'create-button':
                     await this.addNewCar();
+                    break;
+                case elementID.includes('remove-button'):
+                    await this.removeCar(+elementID.slice(-1));
                     break;
                 default:
                     break;
@@ -44,6 +49,14 @@ class GarageController {
         if (state.garagePage >= Math.floor(carsData.total / constants.carsPerPage)) {
             this.garagePage.render(state.garagePage, carsData.cars);
         }
+    }
+
+    async removeCar(id: number) {
+        await this.garage.deleteCar(id);
+
+        const carsData = await this.garage.getCarsData(state.garagePage);
+        this.garagePage.renderCarsTitle(carsData.total);
+        this.garagePage.render(state.garagePage, carsData.cars);
     }
 }
 
