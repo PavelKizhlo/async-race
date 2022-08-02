@@ -3,6 +3,7 @@ import Garage from '../API/garage';
 import Winners from '../API/winners';
 import state from '../app/appData/state';
 import constants from '../app/appData/constants';
+import getRandomCars from '../app/appData/utils';
 
 class GarageController {
     private garagePage: GaragePage;
@@ -41,6 +42,9 @@ class GarageController {
                         (evt.target as HTMLElement).classList.add('button_active');
                     }
                     this.changeCar();
+                    break;
+                case elementID === 'generate-button':
+                    await this.createRandomCars();
                     break;
                 default:
                     break;
@@ -94,6 +98,22 @@ class GarageController {
             const carsData = await this.garage.getCarsData(state.garagePage);
             this.garagePage.render(state.garagePage, carsData.cars);
         });
+    }
+
+    async createRandomCars() {
+        const randomCarsData = getRandomCars();
+        await Promise.allSettled(
+            randomCarsData.map(async (carData) => {
+                await this.garage.createCar(carData);
+            })
+        );
+
+        const carsData = await this.garage.getCarsData(state.garagePage);
+        this.garagePage.renderCarsTitle(carsData.total);
+
+        if (state.garagePage >= Math.floor(carsData.total / constants.carsPerPage)) {
+            this.garagePage.render(state.garagePage, carsData.cars);
+        }
     }
 }
 
