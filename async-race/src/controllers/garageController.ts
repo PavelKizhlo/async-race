@@ -2,7 +2,6 @@ import GaragePage from '../view/garage/garagePage';
 import Garage from '../API/garage';
 import Winners from '../API/winners';
 import state from '../app/appData/state';
-import constants from '../app/appData/constants';
 import getRandomCars from '../app/appData/utils';
 
 class GarageController {
@@ -20,9 +19,7 @@ class GarageController {
 
     async start() {
         const view = document.getElementById('view') as HTMLDivElement;
-        const carsData = await this.garage.getCarsData(state.garagePage);
-        this.garagePage.renderCarsTitle(carsData.total);
-        this.garagePage.render(state.garagePage, carsData.cars);
+        await this.updatePage();
 
         view.addEventListener('click', async (evt) => {
             const elementID = (evt.target as HTMLElement).id;
@@ -52,6 +49,12 @@ class GarageController {
         });
     }
 
+    async updatePage() {
+        const carsData = await this.garage.getCarsData(state.garagePage);
+        this.garagePage.renderCarsTitle(carsData.total);
+        this.garagePage.render(state.garagePage, carsData.cars);
+    }
+
     async addNewCar() {
         const carNameInput = document.getElementById('create-name-input') as HTMLInputElement;
         const carColorInput = document.getElementById('create-color-input') as HTMLInputElement;
@@ -61,21 +64,14 @@ class GarageController {
             carNameInput.value = '';
         }
 
-        const carsData = await this.garage.getCarsData(state.garagePage);
-        this.garagePage.renderCarsTitle(carsData.total);
-
-        if (state.garagePage >= Math.floor(carsData.total / constants.carsPerPage)) {
-            this.garagePage.render(state.garagePage, carsData.cars);
-        }
+        await this.updatePage();
     }
 
     async removeCar(id: number) {
         await this.garage.deleteCar(id);
         await this.winners.deleteWinner(id);
 
-        const carsData = await this.garage.getCarsData(state.garagePage);
-        this.garagePage.renderCarsTitle(carsData.total);
-        this.garagePage.render(state.garagePage, carsData.cars);
+        await this.updatePage();
     }
 
     changeCar() {
@@ -109,12 +105,7 @@ class GarageController {
             })
         );
 
-        const carsData = await this.garage.getCarsData(state.garagePage);
-        this.garagePage.renderCarsTitle(carsData.total);
-
-        if (state.garagePage >= Math.floor(carsData.total / constants.carsPerPage)) {
-            this.garagePage.render(state.garagePage, carsData.cars);
-        }
+        await this.updatePage();
     }
 }
 
