@@ -2,6 +2,7 @@ import GaragePage from '../view/garage/garagePage';
 import Garage from '../API/garage';
 import Winners from '../API/winners';
 import state from '../app/appData/state';
+import constants from '../app/appData/constants';
 import getRandomCars from '../app/appData/utils';
 
 class GarageController {
@@ -18,8 +19,8 @@ class GarageController {
     }
 
     async start() {
-        const view = document.getElementById('view') as HTMLDivElement;
-        await this.updatePage();
+        const view = document.getElementById('garage-view') as HTMLDivElement;
+        await this.loadPage();
 
         view.addEventListener('click', async (evt) => {
             const elementID = (evt.target as HTMLElement).id;
@@ -43,16 +44,28 @@ class GarageController {
                 case elementID === 'generate-button':
                     await this.createRandomCars();
                     break;
+                case elementID.includes('pagination'):
+                    await this.paginate(elementID);
+                    break;
                 default:
                     break;
             }
         });
     }
 
-    async updatePage() {
+    async loadPage() {
         const carsData = await this.garage.getCarsData(state.garagePage);
+
+        state.carsInGarage = carsData.total;
+        state.pagesInGarage = Math.ceil(state.carsInGarage / constants.carsPerPage);
+
         this.garagePage.renderCarsTitle(carsData.total);
         this.garagePage.render(state.garagePage, carsData.cars);
+
+        const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+        if (state.garagePage < state.pagesInGarage) {
+            buttonNext.disabled = false;
+        }
     }
 
     async addNewCar() {
@@ -64,14 +77,14 @@ class GarageController {
             carNameInput.value = '';
         }
 
-        await this.updatePage();
+        await this.loadPage();
     }
 
     async removeCar(id: number) {
         await this.garage.deleteCar(id);
         await this.winners.deleteWinner(id);
 
-        await this.updatePage();
+        await this.loadPage();
     }
 
     changeCar() {
@@ -105,7 +118,38 @@ class GarageController {
             })
         );
 
-        await this.updatePage();
+        await this.loadPage();
+    }
+
+    async paginate(buttonID: string) {
+        const buttonPrev = document.getElementById('pagination-prev') as HTMLButtonElement;
+        const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+
+        switch (buttonID) {
+            case 'pagination-prev':
+                if (state.garagePage >= 2) {
+                    state.garagePage -= 1;
+                    buttonNext.disabled = false;
+                    await this.loadPage();
+                }
+                if (state.garagePage <= 1) {
+                    buttonPrev.disabled = true;
+                }
+                break;
+            case 'pagination-next':
+                if (state.garagePage < state.pagesInGarage) {
+                    state.garagePage += 1;
+                    buttonPrev.disabled = false;
+                    await this.loadPage();
+                }
+
+                if (state.garagePage >= state.pagesInGarage) {
+                    buttonNext.disabled = true;
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
 

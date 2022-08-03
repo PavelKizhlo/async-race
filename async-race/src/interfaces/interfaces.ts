@@ -63,6 +63,9 @@ export type StateObj = {
     winnersPage: number;
     sort: 'id' | 'wins' | 'time';
     order: 'ASC' | 'DESC';
+    carsInGarage?: number;
+    winnersAtTable?: number;
+    pagesInGarage: number;
 };
 
 export interface View {

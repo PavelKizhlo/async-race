@@ -35,6 +35,11 @@ body {
     box-shadow: -1px -1px 4px 2px rgb(34 60 80 / 60%) inset;
 }
 
+.button:disabled {
+    transform: none;
+    cursor: default;
+}
+
 .controls {
     display: grid;
     grid-template-columns: repeat(3, 170px);
