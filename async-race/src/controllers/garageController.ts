@@ -4,9 +4,12 @@ import Winners from '../API/winners';
 import state from '../app/appData/state';
 import constants from '../app/appData/constants';
 import getRandomCars from '../app/appData/utils';
+import RaceController from './raceController';
 
 class GarageController {
     private garagePage: GaragePage;
+
+    private raceController: RaceController;
 
     private garage: Garage;
 
@@ -14,6 +17,7 @@ class GarageController {
 
     constructor() {
         this.garagePage = new GaragePage();
+        this.raceController = new RaceController();
         this.garage = new Garage();
         this.winners = new Winners();
     }
@@ -22,6 +26,7 @@ class GarageController {
         const view = document.getElementById('garage-view') as HTMLDivElement;
         await this.loadPage();
         this.selectCar();
+        this.raceController.start();
 
         view.addEventListener('click', async (evt) => {
             const elementID = (evt.target as HTMLElement).id;
@@ -31,7 +36,7 @@ class GarageController {
                     await this.addNewCar();
                     break;
                 case elementID.includes('remove-button'):
-                    await this.removeCar(parseInt((elementID.match(/[0-9]+$/) as RegExpMatchArray)[0], 10));
+                    await this.removeCar(elementID);
                     break;
                 case elementID === 'update-button':
                     await this.changeCar();
@@ -75,7 +80,8 @@ class GarageController {
         await this.loadPage();
     }
 
-    async removeCar(id: number) {
+    async removeCar(elementID: string) {
+        const id = parseInt((elementID.match(/[0-9]+$/) as RegExpMatchArray)[0], 10);
         await this.garage.deleteCar(id);
         await this.winners.deleteWinner(id);
 

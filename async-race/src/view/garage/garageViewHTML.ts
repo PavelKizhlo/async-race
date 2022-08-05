@@ -2,12 +2,12 @@ const html = `
   <div id="garage-view">
     <div class="controls">
     <div class="controls__create-field">
-        <input class="text-input" type="text" id="create-name-input" placeholder="Please, enter car name here ...">
+        <input class="text-input" type="text" id="create-name-input" autocomplete="off" placeholder="Please, enter car name here ...">
         <input class="color-input" type="color" id="create-color-input" value="#ff0000">
         <button class="create-button button" id="create-button">create</button>
     </div>
     <div class="controls__update-field">
-        <input class="text-input" type="text" id="update-name-input" placeholder="Enter new car name, or change color only ...">
+        <input class="text-input" type="text" id="update-name-input" autocomplete="off" placeholder="Enter new car name, or change color only ...">
         <input class="color-input" type="color" id="update-color-input"  value="#9e5b9f">
         <button class="update-button button" id="update-button">update</button>
     </div>

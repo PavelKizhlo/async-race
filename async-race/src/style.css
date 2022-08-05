@@ -106,10 +106,25 @@ body {
 }
 
 .track {
+    position: relative;
     border-bottom: 3px dashed #ffffff;
 }
 
+.track::after {
+    content: 'FINISH';
+    position: absolute;
+    right: 100px;
+    top: 33px;
+    width: 100px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: red;
+    transform: rotateZ(-45deg);
+}
+
 .car {
+    position: relative;
+    left: 0;
     display: block;
     width: 100px;
 }
