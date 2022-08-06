@@ -24,10 +24,10 @@ class Winners implements WinnersAPI {
 
     async getWinner(id: number) {
         const response = await fetch(`${this.winners}/${id}`);
-        return response.json();
+        return (await response.json()) as Winner;
     }
 
-    async createWinner(params: Omit<Winner, 'id'>) {
+    async createWinner(params: Winner) {
         const response = await fetch(this.winners, {
             method: 'POST',
             body: JSON.stringify(params),

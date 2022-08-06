@@ -48,7 +48,7 @@ export interface WinnersAPI {
         total: number;
     }>;
     getWinner: (id: number) => Promise<Winner>;
-    createWinner: (winnerParams: Omit<Winner, 'id'>) => Promise<Winner>;
+    createWinner: (winnerParams: Winner) => Promise<Winner>;
     deleteWinner: (id: number) => Promise<void>;
     updateWinner: (id: number, winnerParams: Omit<Winner, 'id'>) => Promise<void>;
 }

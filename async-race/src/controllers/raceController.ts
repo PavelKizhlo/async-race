@@ -1,5 +1,6 @@
 import Engine from '../API/engine';
 import Garage from '../API/garage';
+import Winners from '../API/winners';
 import { RaceParams, SuccessRace } from '../interfaces/interfaces';
 import state from '../app/appData/state';
 
@@ -8,11 +9,14 @@ class RaceController {
 
     private garage: Garage;
 
+    private winners: Winners;
+
     private frameIDs: { [index: string]: number };
 
     constructor() {
         this.engine = new Engine();
         this.garage = new Garage();
+        this.winners = new Winners();
         this.frameIDs = {};
     }
 
@@ -137,11 +141,11 @@ class RaceController {
             raceParams: RaceParams;
             id: number;
         };
-        const winnerTime = (winnerParams.raceParams.distance / winnerParams.raceParams.velocity / 1000).toFixed(2);
+        const winnerTime = +(winnerParams.raceParams.distance / winnerParams.raceParams.velocity / 1000).toFixed(2);
 
         raceWinner.classList.add('race-winner_active');
         raceWinner.innerHTML = `${winnerCar} went first [${winnerTime}s]`;
-        console.log(winnerTime);
+        await this.addWin(raceResults.id, winnerTime);
     }
 
     async resetRace() {
@@ -169,6 +173,17 @@ class RaceController {
             cancelAnimationFrame(this.frameIDs[`frame${id}`]);
             this.animateRace(id, carsStopParams[index]);
         });
+    }
+
+    async addWin(id: number, time: number) {
+        const winnerData = await this.winners.getWinner(id);
+        if ('id' in winnerData) {
+            const newWins = winnerData.wins + 1;
+            const newTime = time < winnerData.time ? time : winnerData.time;
+            await this.winners.updateWinner(id, { time: newTime, wins: newWins });
+        } else {
+            await this.winners.createWinner({ id, time, wins: 1 });
+        }
     }
 }
 
