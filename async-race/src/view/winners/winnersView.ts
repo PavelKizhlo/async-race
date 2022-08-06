@@ -1,4 +1,5 @@
 import { View } from '../../interfaces/interfaces';
+import state from '../../app/appData/state';
 
 class WinnersView implements View {
     render() {
@@ -13,6 +14,12 @@ class WinnersView implements View {
             </div>
           </div>
         `;
+
+        const buttonPrev = document.getElementById('pagination-prev') as HTMLButtonElement;
+        const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+
+        if (state.winnersPage <= 1) buttonPrev.disabled = true;
+        if (state.winnersPage >= state.pagesInWinners) buttonNext.disabled = true;
     }
 }
 

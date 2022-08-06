@@ -2,6 +2,7 @@ import WinnersPage from '../view/winners/winnersPage';
 import Winners from '../API/winners';
 import Garage from '../API/garage';
 import state from '../app/appData/state';
+import constants from '../app/appData/constants';
 import { Winner, Car } from '../interfaces/interfaces';
 
 class WinnersController {
@@ -18,10 +19,30 @@ class WinnersController {
     }
 
     async start() {
+        const view = document.getElementById('winners-view') as HTMLDivElement;
+        await this.loadPage();
+
+        view.addEventListener('click', async (evt) => {
+            const elementID = (evt.target as HTMLElement).id;
+
+            switch (true) {
+                case elementID.includes('pagination'):
+                    await this.paginate(elementID);
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
+    async loadPage() {
         const winnersData = await this.winners.getWinnersData(state.winnersPage, state.sort, state.order);
         const winersWithCars: Array<{ winner: Winner; winnersCar: Car }> = [];
 
-        await Promise.allSettled(
+        state.winnersAtTable = winnersData.total;
+        state.pagesInWinners = Math.ceil(state.winnersAtTable / constants.winnersPerPage);
+
+        await Promise.all(
             winnersData.winners.map(async (winnerData) => {
                 const winnersCar = await this.garage.getCar(winnerData.id);
                 winersWithCars.push({
@@ -33,6 +54,42 @@ class WinnersController {
 
         this.winnersPage.renderWinnersTitle(winnersData.total);
         this.winnersPage.render(state.winnersPage, winersWithCars);
+
+        const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+        if (state.winnersPage < state.pagesInWinners) {
+            buttonNext.disabled = false;
+        }
+    }
+
+    async paginate(buttonID: string) {
+        const buttonPrev = document.getElementById('pagination-prev') as HTMLButtonElement;
+        const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+
+        switch (buttonID) {
+            case 'pagination-prev':
+                if (state.winnersPage >= 2) {
+                    state.winnersPage -= 1;
+                    buttonNext.disabled = false;
+                    await this.loadPage();
+                }
+                if (state.winnersPage <= 1) {
+                    buttonPrev.disabled = true;
+                }
+                break;
+            case 'pagination-next':
+                if (state.winnersPage < state.pagesInWinners) {
+                    state.winnersPage += 1;
+                    buttonPrev.disabled = false;
+                    await this.loadPage();
+                }
+
+                if (state.winnersPage >= state.pagesInWinners) {
+                    buttonNext.disabled = true;
+                }
+                break;
+            default:
+                break;
+        }
     }
 }
 

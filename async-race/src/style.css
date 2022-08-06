@@ -140,6 +140,7 @@ body {
     top: 50%;
     color: yellow;
     font-size: 4rem;
+    text-align: center;
     transform: translate(-50%, -50%);
 }
 

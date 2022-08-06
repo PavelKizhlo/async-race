@@ -66,6 +66,7 @@ export type StateObj = {
     carsInGarage?: number;
     winnersAtTable?: number;
     pagesInGarage: number;
+    pagesInWinners: number;
 };
 
 export interface View {
