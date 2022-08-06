@@ -33,6 +33,7 @@ class RaceController {
                     await this.startRace();
                     break;
                 case elementID === 'reset-button':
+                    await this.resetRace();
                     break;
                 default:
                     break;
@@ -127,8 +128,31 @@ class RaceController {
                 }
             })
         );
+    }
 
-        console.log(carsRaceParams);
+    async resetRace() {
+        const raceButton = document.getElementById('race-button') as HTMLButtonElement;
+        const carsData = await this.garage.getCarsData(state.garagePage);
+        const carsIDs = carsData.cars.reduce((acc: Array<number>, currentCar) => {
+            acc.push(currentCar.id);
+            return acc;
+        }, []);
+
+        raceButton.disabled = false;
+
+        const carsStopParams = await Promise.all(
+            carsIDs.map(async (id) => {
+                const stopParams = await this.engine.stopEngine(id);
+                return stopParams;
+            })
+        );
+
+        carsIDs.forEach((id, index) => {
+            const startButton = document.getElementById(`start-${id}`) as HTMLButtonElement;
+            startButton.disabled = false;
+            cancelAnimationFrame(this.frameIDs[`frame${id}`]);
+            this.animateRace(id, carsStopParams[index]);
+        });
     }
 }
 

@@ -141,6 +141,9 @@ class GarageController {
     async paginate(buttonID: string) {
         const buttonPrev = document.getElementById('pagination-prev') as HTMLButtonElement;
         const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
+        const raceButton = document.getElementById('race-button') as HTMLButtonElement;
+
+        raceButton.disabled = false;
 
         switch (buttonID) {
             case 'pagination-prev':
