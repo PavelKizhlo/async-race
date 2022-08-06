@@ -169,6 +169,11 @@ body {
     border-right: 1px solid #ffffff;
 }
 
+.table__header_time,
+.table__header_wins {
+    cursor: pointer;
+}
+
 .table__header:last-child {
     border-right: none;
 }

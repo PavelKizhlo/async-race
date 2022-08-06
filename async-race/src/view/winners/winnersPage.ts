@@ -24,8 +24,8 @@ class WinnersPage {
                 <th class="table__header">Number</th>
                 <th class="table__header">Car</th>
                 <th class="table__header">Name</th>
-                <th class="table__header">Wins</th>
-                <th class="table__header">Best time</th>
+                <th class="table__header table__header_wins" id="wins">Wins</th>
+                <th class="table__header table__header_time" id="best-time">Best time</th>
               </tr>
             </thead>
           <tbody class="table__body" id="table-body"></tbody>

@@ -26,6 +26,12 @@ class WinnersController {
             const elementID = (evt.target as HTMLElement).id;
 
             switch (true) {
+                case elementID === 'best-time':
+                    await this.sortByTime();
+                    break;
+                case elementID === 'wins':
+                    await this.sortByWins();
+                    break;
                 case elementID.includes('pagination'):
                     await this.paginate(elementID);
                     break;
@@ -90,6 +96,18 @@ class WinnersController {
             default:
                 break;
         }
+    }
+
+    async sortByTime() {
+        state.sort = 'time';
+        state.order = state.order === 'ASC' ? 'DESC' : 'ASC';
+        await this.loadPage();
+    }
+
+    async sortByWins() {
+        state.sort = 'wins';
+        state.order = state.order === 'ASC' ? 'DESC' : 'ASC';
+        await this.loadPage();
     }
 }
 
