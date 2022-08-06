@@ -1,13 +1,18 @@
 import Engine from '../API/engine';
+import Garage from '../API/garage';
 import { RaceParams } from '../interfaces/interfaces';
+import state from '../app/appData/state';
 
 class RaceController {
     private engine: Engine;
+
+    private garage: Garage;
 
     private frameIDs: { [index: string]: number };
 
     constructor() {
         this.engine = new Engine();
+        this.garage = new Garage();
         this.frameIDs = {};
     }
 
@@ -25,6 +30,7 @@ class RaceController {
                     await this.stopCar(elementID);
                     break;
                 case elementID === 'race-button':
+                    await this.startRace();
                     break;
                 case elementID === 'reset-button':
                     break;
@@ -85,6 +91,44 @@ class RaceController {
         startButton.disabled = false;
         cancelAnimationFrame(this.frameIDs[`frame${id}`]);
         this.animateRace(id, stopParams);
+    }
+
+    async startRace() {
+        const raceButton = document.getElementById('race-button') as HTMLButtonElement;
+        const carsData = await this.garage.getCarsData(state.garagePage);
+        const carsIDs = carsData.cars.reduce((acc: Array<number>, currentCar) => {
+            acc.push(currentCar.id);
+            return acc;
+        }, []);
+
+        raceButton.disabled = true;
+
+        const carsRaceParams = await Promise.all(
+            carsIDs.map(async (id) => {
+                const raceParams = await this.engine.startEngine(id);
+                return raceParams;
+            })
+        );
+
+        carsIDs.forEach((id, index) => {
+            const startButton = document.getElementById(`start-${id}`) as HTMLButtonElement;
+            startButton.disabled = true;
+            this.animateRace(id, carsRaceParams[index]);
+        });
+
+        await Promise.allSettled(
+            carsIDs.map(async (id) => {
+                const carName = (document.getElementById(`car-name-${id}`) as HTMLSpanElement).innerHTML;
+                try {
+                    await this.engine.drive(id);
+                } catch (err) {
+                    cancelAnimationFrame(this.frameIDs[`frame${id}`]);
+                    console.log(`${carName} has been stopped suddenly. It's engine was broken down.`);
+                }
+            })
+        );
+
+        console.log(carsRaceParams);
     }
 }
 
