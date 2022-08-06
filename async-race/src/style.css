@@ -133,6 +133,20 @@ body {
     width: 100%;
 }
 
+.race-winner {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: yellow;
+    font-size: 4rem;
+    transform: translate(-50%, -50%);
+}
+
+.race-winner_active {
+    display: block;
+}
+
 .garage-pagination,
 .winners-pagination {
     display: flex;

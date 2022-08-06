@@ -21,6 +21,7 @@ const html = `
       <button class="pagination__button button" id="pagination-prev">prev</button>
       <button class="pagination__button button" id="pagination-next">next</button>
     </div>
+    <div class="race-winner" id="race-winner"></div>
   </div>
 `;
 

@@ -1,6 +1,6 @@
 import Engine from '../API/engine';
 import Garage from '../API/garage';
-import { RaceParams } from '../interfaces/interfaces';
+import { RaceParams, SuccessRace } from '../interfaces/interfaces';
 import state from '../app/appData/state';
 
 class RaceController {
@@ -96,6 +96,7 @@ class RaceController {
 
     async startRace() {
         const raceButton = document.getElementById('race-button') as HTMLButtonElement;
+        const raceWinner = document.getElementById('race-winner') as HTMLDivElement;
         const carsData = await this.garage.getCarsData(state.garagePage);
         const carsIDs = carsData.cars.reduce((acc: Array<number>, currentCar) => {
             acc.push(currentCar.id);
@@ -107,31 +108,45 @@ class RaceController {
         const carsRaceParams = await Promise.all(
             carsIDs.map(async (id) => {
                 const raceParams = await this.engine.startEngine(id);
-                return raceParams;
+                return { raceParams, id };
             })
         );
 
-        carsIDs.forEach((id, index) => {
-            const startButton = document.getElementById(`start-${id}`) as HTMLButtonElement;
+        carsRaceParams.forEach((params) => {
+            const startButton = document.getElementById(`start-${params.id}`) as HTMLButtonElement;
             startButton.disabled = true;
-            this.animateRace(id, carsRaceParams[index]);
+            this.animateRace(params.id, params.raceParams);
         });
 
-        await Promise.allSettled(
+        const raceResults = (await Promise.any(
             carsIDs.map(async (id) => {
                 const carName = (document.getElementById(`car-name-${id}`) as HTMLSpanElement).innerHTML;
                 try {
-                    await this.engine.drive(id);
+                    const raceResult = await this.engine.drive(id);
+                    return { raceResult, id };
                 } catch (err) {
                     cancelAnimationFrame(this.frameIDs[`frame${id}`]);
                     console.log(`${carName} has been stopped suddenly. It's engine was broken down.`);
+                    return Promise.reject();
                 }
             })
-        );
+        )) as Awaited<Promise<{ raceResult: SuccessRace; id: number }>>;
+
+        const winnerCar = (document.getElementById(`car-name-${raceResults.id}`) as HTMLSpanElement).innerHTML;
+        const winnerParams = carsRaceParams.find((params) => params.id === raceResults.id) as {
+            raceParams: RaceParams;
+            id: number;
+        };
+        const winnerTime = (winnerParams.raceParams.distance / winnerParams.raceParams.velocity / 1000).toFixed(2);
+
+        raceWinner.classList.add('race-winner_active');
+        raceWinner.innerHTML = `${winnerCar} went first [${winnerTime}s]`;
+        console.log(winnerTime);
     }
 
     async resetRace() {
         const raceButton = document.getElementById('race-button') as HTMLButtonElement;
+        const raceWinner = document.getElementById('race-winner') as HTMLDivElement;
         const carsData = await this.garage.getCarsData(state.garagePage);
         const carsIDs = carsData.cars.reduce((acc: Array<number>, currentCar) => {
             acc.push(currentCar.id);
@@ -139,6 +154,7 @@ class RaceController {
         }, []);
 
         raceButton.disabled = false;
+        raceWinner.classList.remove('race-winner_active');
 
         const carsStopParams = await Promise.all(
             carsIDs.map(async (id) => {

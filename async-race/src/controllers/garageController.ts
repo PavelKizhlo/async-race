@@ -55,7 +55,9 @@ class GarageController {
 
     async loadPage() {
         const carsData = await this.garage.getCarsData(state.garagePage);
+        const raceWinner = document.getElementById('race-winner') as HTMLDivElement;
 
+        raceWinner.classList.remove('race-winner_active');
         state.carsInGarage = carsData.total;
         state.pagesInGarage = Math.ceil(state.carsInGarage / constants.carsPerPage);
 
