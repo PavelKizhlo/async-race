@@ -61,6 +61,13 @@ class WinnersController {
         this.winnersPage.renderWinnersTitle(winnersData.total);
         this.winnersPage.render(state.winnersPage, winersWithCars);
 
+        const arrowTime = document.getElementById('arrow-time') as HTMLElement;
+        const arrowWins = document.getElementById('arrow-wins') as HTMLElement;
+        if (state.sort === 'time') arrowTime.classList.add('arrow_active');
+        if (state.order === 'ASC') arrowTime.classList.add('arrow_rotate');
+        if (state.sort === 'wins') arrowWins.classList.add('arrow_active');
+        if (state.order === 'ASC') arrowWins.classList.add('arrow_rotate');
+
         const buttonNext = document.getElementById('pagination-next') as HTMLButtonElement;
         if (state.winnersPage < state.pagesInWinners) {
             buttonNext.disabled = false;

@@ -187,3 +187,16 @@ body {
 .table__cell:last-child {
     border-right: none;
 }
+
+.arrow {
+    display: none;
+    width: 13px;
+}
+
+.arrow_active {
+    display: inline-block;
+}
+
+.arrow_rotate {
+    transform: rotateZ(180deg);
+}

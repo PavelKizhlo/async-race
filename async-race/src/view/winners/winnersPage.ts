@@ -24,8 +24,12 @@ class WinnersPage {
                 <th class="table__header">Number</th>
                 <th class="table__header">Car</th>
                 <th class="table__header">Name</th>
-                <th class="table__header table__header_wins" id="wins">Wins</th>
-                <th class="table__header table__header_time" id="best-time">Best time</th>
+                <th class="table__header table__header_wins" id="wins">Wins
+                  <svg class="arrow" id="arrow-wins" fill="none" viewBox="0 0 64 64"><path d="M32 62 62 2H2l30 60Z" fill="#fff"/></svg>
+                </th>
+                <th class="table__header table__header_time" id="best-time">Best time
+                  <svg class="arrow" id="arrow-time" fill="none" viewBox="0 0 64 64"><path d="M32 62 62 2H2l30 60Z" fill="#fff"/></svg>
+                </th>
               </tr>
             </thead>
           <tbody class="table__body" id="table-body"></tbody>
