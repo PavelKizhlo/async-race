@@ -48,10 +48,12 @@ class RaceController {
     async startSingleRace(elementID: string) {
         const startButton = document.getElementById(elementID) as HTMLButtonElement;
         const id = parseInt((elementID.match(/[0-9]+$/) as RegExpMatchArray)[0], 10);
+        const stopButton = document.getElementById(`stop-${id}`) as HTMLButtonElement;
         const carName = (document.getElementById(`car-name-${id}`) as HTMLSpanElement).innerHTML;
         const raceParams = await this.engine.startEngine(id);
 
         startButton.disabled = true;
+        stopButton.disabled = false;
         this.animateRace(id, raceParams);
         try {
             await this.engine.drive(id);
@@ -89,10 +91,12 @@ class RaceController {
     }
 
     async stopCar(elementID: string) {
+        const stopButton = document.getElementById(elementID) as HTMLButtonElement;
         const id = parseInt((elementID.match(/[0-9]+$/) as RegExpMatchArray)[0], 10);
         const startButton = document.getElementById(`start-${id}`) as HTMLButtonElement;
         const stopParams = await this.engine.stopEngine(id);
 
+        stopButton.disabled = true;
         startButton.disabled = false;
         cancelAnimationFrame(this.frameIDs[`frame${id}`]);
         this.animateRace(id, stopParams);
@@ -118,7 +122,9 @@ class RaceController {
 
         carsRaceParams.forEach((params) => {
             const startButton = document.getElementById(`start-${params.id}`) as HTMLButtonElement;
+            const stopButton = document.getElementById(`stop-${params.id}`) as HTMLButtonElement;
             startButton.disabled = true;
+            stopButton.disabled = false;
             this.animateRace(params.id, params.raceParams);
         });
 
@@ -169,7 +175,9 @@ class RaceController {
 
         carsIDs.forEach((id, index) => {
             const startButton = document.getElementById(`start-${id}`) as HTMLButtonElement;
+            const stopButton = document.getElementById(`stop-${id}`) as HTMLButtonElement;
             startButton.disabled = false;
+            stopButton.disabled = true;
             cancelAnimationFrame(this.frameIDs[`frame${id}`]);
             this.animateRace(id, carsStopParams[index]);
         });

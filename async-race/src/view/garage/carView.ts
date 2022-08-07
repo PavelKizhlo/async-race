@@ -15,7 +15,7 @@ class CarView {
           </div>
           <div class="track">
             <button class="engine-button button" id="start-${carData.id}">a</button>
-            <button class="engine-button button" id="stop-${carData.id}">b</button>
+            <button class="engine-button button" id="stop-${carData.id}" disabled>b</button>
             <span class="car" id="car-${carData.id}">${svg}</span>
           </div>
         `;
