@@ -1,7 +1,6 @@
-import { View } from '../../interfaces/interfaces';
 import state from '../../app/appData/state';
 
-class WinnersView implements View {
+class WinnersView {
     render() {
         const view = document.getElementById('view') as HTMLDivElement;
         view.innerHTML = `

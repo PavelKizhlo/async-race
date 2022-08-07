@@ -1,6 +1,4 @@
-import { View } from '../interfaces/interfaces';
-
-class CommonView implements View {
+class CommonView {
     render() {
         const container = document.getElementById('app') as HTMLBodyElement;
 

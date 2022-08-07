@@ -68,7 +68,3 @@ export type StateObj = {
     pagesInGarage: number;
     pagesInWinners: number;
 };
-
-export interface View {
-    render: () => void;
-}

@@ -1,8 +1,7 @@
-import { View } from '../../interfaces/interfaces';
 import html from './garageViewHTML';
 import state from '../../app/appData/state';
 
-class GarageView implements View {
+class GarageView {
     render() {
         const view = document.getElementById('view') as HTMLDivElement;
         view.innerHTML = html;
