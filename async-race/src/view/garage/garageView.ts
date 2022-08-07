@@ -12,6 +12,16 @@ class GarageView implements View {
 
         if (state.garagePage <= 1) buttonPrev.disabled = true;
         if (state.garagePage >= state.pagesInGarage) buttonNext.disabled = true;
+
+        const createNameInput = document.getElementById('create-name-input') as HTMLInputElement;
+        const createColorInput = document.getElementById('create-color-input') as HTMLInputElement;
+        const updateNameInput = document.getElementById('update-name-input') as HTMLInputElement;
+        const updateColorInput = document.getElementById('update-color-input') as HTMLInputElement;
+
+        createNameInput.value = state.createCarInput;
+        createColorInput.value = state.createColorInput;
+        updateNameInput.value = state.updateCarInput;
+        updateColorInput.value = state.updateColorInput;
     }
 }
 

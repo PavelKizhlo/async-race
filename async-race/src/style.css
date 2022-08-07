@@ -42,7 +42,7 @@ body {
 
 .controls {
     display: grid;
-    grid-template-columns: repeat(3, 170px);
+    grid-template-columns: repeat(3, minmax(140px, 170px));
     justify-content: center;
     gap: 15px;
 }

@@ -26,6 +26,7 @@ class GarageController {
         const view = document.getElementById('garage-view') as HTMLDivElement;
         await this.loadPage();
         this.selectCar();
+        this.saveInputs();
         this.raceController.start();
 
         view.addEventListener('click', async (evt) => {
@@ -77,6 +78,7 @@ class GarageController {
         if (carNameInput.value) {
             await this.garage.createCar({ name: carNameInput.value, color: carColorInput.value });
             carNameInput.value = '';
+            state.createCarInput = '';
         }
 
         await this.loadPage();
@@ -111,6 +113,32 @@ class GarageController {
         });
     }
 
+    saveInputs() {
+        const view = document.getElementById('garage-view') as HTMLDivElement;
+
+        view.addEventListener('input', (evt) => {
+            const { value } = evt.target as HTMLInputElement;
+            const { id } = evt.target as HTMLInputElement;
+
+            switch (true) {
+                case id === 'create-name-input':
+                    state.createCarInput = value;
+                    break;
+                case id === 'create-color-input':
+                    state.createColorInput = value;
+                    break;
+                case id === 'update-name-input':
+                    state.updateCarInput = value;
+                    break;
+                case id === 'update-color-input':
+                    state.updateColorInput = value;
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
     async changeCar() {
         const carNameInput = document.getElementById('update-name-input') as HTMLInputElement;
         const carColorInput = document.getElementById('update-color-input') as HTMLInputElement;
@@ -124,6 +152,7 @@ class GarageController {
                 color: carColorInput.value,
             });
             carNameInput.value = '';
+            state.updateCarInput = '';
         }
 
         await this.loadPage();
