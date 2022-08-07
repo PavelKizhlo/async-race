@@ -1,5 +1,6 @@
 import { Winner, Car } from '../../interfaces/interfaces';
 import SingleWinnerView from './singleWinnerView';
+import constants from '../../app/appData/constants';
 
 class WinnersPage {
     private singleWinnerView: SingleWinnerView;
@@ -35,7 +36,8 @@ class WinnersPage {
           <tbody class="table__body" id="table-body"></tbody>
         `;
 
-        winnersPageData.forEach((winnerData, index) => this.singleWinnerView.render(winnerData, index));
+        const pageIndexDiff = 1 + (page - 1) * constants.winnersPerPage;
+        winnersPageData.forEach((winnerData, index) => this.singleWinnerView.render(winnerData, index + pageIndexDiff));
     }
 }
 
